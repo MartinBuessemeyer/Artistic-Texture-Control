@@ -126,7 +126,24 @@ Further, the prototype needs a GPU with > 6 GB RAM for reasonably large images, 
 
 ## Optimization-based Editing GUI
 
-Coming soon.
+This app demonstrates the optimization-based synthesis and  editing capabilities including:
+- global parameter tuning
+- geometric abstraction control (painttransformer or SLIC)
+- (re-) optimization. Optimize with different losses such as 
+  - target image-based: L1
+  - image-based style transfer: Gatys Loss, STROTTS Loss
+  - text-based style transfer: CLIPStyler Loss. 
+- Prediction with arbitrary parameter prediction network
+- Interpolation of parameters using depth and saliency masks
+
+Please also see the [supplementary video](https://youtu.be/Reip0iyY05U?t=428) starting at 7:05 for a short demonstration of the global editing app.
+
+### Installing and running
+
+Make sure to have the packages specified in `tools/global_edits/requirements.txt` installed, the exact streamlit and streamlit drawable versions are required.
+To run the demo, execute in the `tools/global_edits/` directory:
+
+`python -m streamlit run global_editing_streamlit_app.py`
 
 ## Optimization and training
 

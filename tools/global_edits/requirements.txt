@@ -1,0 +1,14 @@
+imageio
+imageio-ffmpeg
+matplotlib
+Pillow
+numpy==1.23.2
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch
+torchvision
+streamlit==1.11.1
+streamlit_drawable_canvas==0.8.0
+streamlit_extras==0.1.5
+st_click_detector
+scipy
+huggingface_hub

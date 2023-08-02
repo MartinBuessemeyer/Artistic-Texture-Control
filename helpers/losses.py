@@ -321,6 +321,7 @@ class CLIPstylerLoss(nn.Module):
         self.content_loss = PerceptualContentLoss()
 
         self.raw_content_image = None
+        self.source_features = None
 
         template_source = self.compose_text_with_templates(self.source, imagenet_templates)
         tokens_source = clip.tokenize(template_source).to(self.device)

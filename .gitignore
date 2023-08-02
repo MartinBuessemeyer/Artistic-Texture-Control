@@ -41,6 +41,8 @@ experiments/result-20000-its
 experiments/result-600
 experiments/stats.txt
 
+tools/global_edits/tmp_results/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
