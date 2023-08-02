@@ -1,0 +1,23 @@
+imageio
+imageio-ffmpeg
+matplotlib
+Pillow
+numpy==1.23.2
+torch
+torchvision
+pytorch-lightning
+streamlit==1.11.1
+scikit-image[optional]
+streamlit_drawable_canvas
+st_click_detector
+dominate
+segmentation_models_pytorch
+opencv-python
+scipy
+wandb
+numexpr
+bottleneck
+art_fid
+scikit-learn
+torch_scatter # on errors install via prebuilt wheels. See: https://github.com/rusty1s/pytorch_scatter
+git+https://github.com/openai/CLIP.git
