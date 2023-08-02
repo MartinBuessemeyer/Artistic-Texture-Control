@@ -1,9 +1,13 @@
 # Controlling Geometric Abstraction and Texture for Artistic Images
 
-### [Project Page](https://maxreimann.github.io/artistic-texture-editing/) | [Paper](https://arxiv.org/abs/TODO) | [Video](https://www.youtube.com/watch?v=_Gfda8a3Sn)
+### [Project Page](https://maxreimann.github.io/artistic-texture-editing/) | [Paper](https://arxiv.org/abs/2308.00148) | [Video](https://www.youtube.com/watch?v=Reip0iyY05U)
 
-Official pytorch implementation for controlling texture and geometric abstraction in artistic images, for example for
+Official pytorch code for controlling texture and geometric abstraction in artistic images, e.g.,
 results of neural style transfer.
+
+<p align="center">
+<img src="https://github.com/MartinBuessemeyer/Artistic-Texture-Control/assets/5698958/6f8ac2ef-48ab-4d00-87f4-0dbbfc358ae0" width="720">
+</p>
 
 [Controlling Geometric Abstraction and Texture for Artistic Images](https://maxreimann.github.io/artistic-texture-editing/)<br/>
 [Martin Büßemeyer](https://www.researchgate.net/profile/Martin-Buessemeyer)\*<sup>1</sup>,
@@ -13,17 +17,17 @@ results of neural style transfer.
 [Jürgen Döllner](https://hpi.de/forschung/fachgebiete/computergrafische-systeme.html)<sup>1</sup>,
 [Matthias Trapp](https://scholar.google.de/citations?hl=en&user=zAHgRRQAAAAJ)<sup>1</sup> <br>
 <sup>1</sup>Hasso Plattner Institute, University of Potsdam, Germany, <sup>2</sup>Digitalmasterpieces GmbH, Germany<br/>
+*equal contribution <br/>
 in [Cyberworlds 2023](https://cw2023.ieee.tn/)
 
 ## Main Idea
 
+
 We propose a method to control the geometric abstraction (coarse features) and
 texture (fine details) in artistic images (
 such as results of [Neural Style Transfer](https://en.wikipedia.org/wiki/Neural_style_transfer)) separately from
-another. <br>
-We implement a stylization pipeline that geometrically abstracts images in its first stage and adds back the texture in
-the second stage.<br>
-The stages make use of the following abstraction and stylization methods:
+another. We implement a stylization pipeline that geometrically abstracts images in its first stage and adds back the texture in
+the second stage. The stages make use of the following abstraction and stylization methods:
 
 - Geometric Abstraction:
     - Image Segmentation (we use [SLIC](DOI:10.1109/TPAMI.2012.120)) or
@@ -33,6 +37,8 @@ The stages make use of the following abstraction and stylization methods:
       in the artistic control parameters of image filters. <br>
       We introduce a lightweight differentiable "Arbitrary Style Pipeline" which is capable of representing the
       previously "lost" texture, and is convenient to edit.
+
+<img width="960" alt="tex_decomp" src="https://github.com/MartinBuessemeyer/Artistic-Texture-Control/assets/5698958/484a729d-fb52-4e38-a795-591381ca0721">
 
 To acquire the filter parameters of the texture control stage, *texture decomposition* is executed by using either an
 optimization-based approach that tunes parameters such that the effect output resembles a target image or by training a
@@ -105,8 +111,13 @@ We provide a near minimal set of editing tools to show the advantages of our met
 - Re-Predict Parameter Masks: Repredicts the parameter masks for the texture stage. Thus the new masks adapt to the
   performed geometric abstraction edits.
 
-Please see the [supplementary video](https://youtu.be/_Gfda8a3Snc?t=213) starting at 3:30 for a short demonstration of
-an editing workflow.
+
+
+https://github.com/MartinBuessemeyer/Artistic-Texture-Control/assets/5698958/021d7dcd-f644-4a34-b4d9-d3bc8981efd5
+
+
+Please also see the [supplementary video](https://youtu.be/Reip0iyY05U?t=600) starting at 10:00 for a short demonstration of
+an editing workflow to correct NST artifacts.
 
 The geometric abstraction editing tools operate on segments predicted by SLIC. For artistic geometry editing, try out
 the optimization-based prototype. <br>
@@ -137,14 +148,14 @@ Display script options: `python -m parameter_optimization.parametric_styletransf
 
 Important Script Options:
 
-`--content path/to/content_img` Path to the content image that should be used.
-`--style path/to/style_img` Path to the style image that should be used.
-`--loss <one of: 'L1', 'CLIPStyler', 'GatysLoss', 'STROTTS'>` The loss that should be used as optimization goal.
-`--nst_variant <one of: 'STROTTS', 'JohnsonNST'>` Which NST variant should be used for the initial NST of the content
+- `--content path/to/content_img` Path to the content image that should be used.
+- `--style path/to/style_img` Path to the style image that should be used.
+- `--loss <one of: 'L1', 'CLIPStyler', 'GatysLoss', 'STROTTS'>` The loss that should be used as optimization goal.
+- `--nst_variant <one of: 'STROTTS', 'JohnsonNST'>` Which NST variant should be used for the initial NST of the content
 image.
-`--first_stage_type <one of: 'PaintTransformer', 'Segmentation'>` Which geometric abstraction should be used.
-`--clipstyler_text "My Text Prompt"` The text prompt for the CLIPStyler loss.
-`--n_iterations 500` Number of optimization steps to perform. We recommend at least 100.
+- `--first_stage_type <one of: 'PaintTransformer', 'Segmentation'>` Which geometric abstraction should be used.
+- `--clipstyler_text "My Text Prompt"` The text prompt for the CLIPStyler loss.
+- `--n_iterations 500` Number of optimization steps to perform. We recommend at least 100.
 
 ### Pre-Trained Parameteter Prediction Network Weights
 
@@ -177,16 +188,16 @@ python -m parameter_prediction_network.train --batch_size 16 --lr 5e-4 --logs_di
 
 Important Script Options:
 
-`--content path/to/content_img` Path to the content image that should be used.
-`--style path/to/style_img` Path to the style image that should be used.
-`--img_size 256` Size of the content images during training.
-`--style_img_size 256` Size of the style image for loss calculation purposes. Changing the parameter might lead to bad
+- `--content path/to/content_img` Path to the content image that should be used.
+- `--style path/to/style_img` Path to the style image that should be used.
+- `--img_size 256` Size of the content images during training.
+- `--style_img_size 256` Size of the style image for loss calculation purposes. Changing the parameter might lead to bad
 stylization.
-`--architecture johnson_instance_norm` Change the network architecture of the trained model. See list of available
+- `--architecture johnson_instance_norm` Change the network architecture of the trained model. See list of available
 models: `parameter_prediction_network/ppn_architectures/__init__`.
-`--num_train_gpus` Number of GPUs to use for training. If training PPN, must at least one lower as the actual GPU count
+- `--num_train_gpus` Number of GPUs to use for training. If training PPN, must at least one lower as the actual GPU count
 as one additional GPU will be used for the initial Johnson NST of the content images.
-`--johnson_nst_model` PPN only: Path to the Johnson NST weights, that should be used for the initial NST.
+- `--johnson_nst_model` PPN only: Path to the Johnson NST weights, that should be used for the initial NST.
 
 Training a Arbitrary Style Parameter Prediction Network works similar.
 In addition to the [MS COCO](https://arxiv.org/abs/1405.0312) [dataset](https://cocodataset.org/#home),
